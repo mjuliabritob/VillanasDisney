@@ -143,3 +143,30 @@ seleccion = st.radio(
     index=None,  # 👈 esto evita selección automática
     key=f"pregunta_{st.session_state.indice}"
 )
+if not st.session_state.respondido:
+
+    seleccion = st.radio(
+        "Elige una opción:",
+        st.session_state.opciones,
+        index=None,
+        key=f"pregunta_{st.session_state.indice}"
+    )
+
+    if st.button("Responder"):
+        if seleccion is None:
+            st.warning("⚠️ Debes seleccionar una opción")
+        else:
+            correcto = seleccion == pregunta_actual["respuesta"]
+
+            if correcto:
+                st.session_state.puntaje += 1
+
+            animacion(correcto)
+            st.session_state.respondido = True
+            st.rerun()
+            if st.session_state.respondido:
+    if st.button("Siguiente"):
+        st.session_state.indice += 1
+        st.session_state.respondido = False
+        st.session_state.opciones = []
+        st.rerun()
