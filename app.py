@@ -137,3 +137,9 @@ else:
         st.session_state.respondido = False
         st.session_state.opciones = []
         st.rerun()
+seleccion = st.radio(
+    "Elige una opción:",
+    st.session_state.opciones,
+    index=None,  # 👈 esto evita selección automática
+    key=f"pregunta_{st.session_state.indice}"
+)
