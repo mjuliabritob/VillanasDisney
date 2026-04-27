@@ -137,4 +137,29 @@ else:
         st.session_state.respondido = False
         st.session_state.opciones = []
         st.rerun()
-        
+        seleccion = st.radio(
+    "Elige una opción:",
+    st.session_state.opciones,
+    index=None,
+    key=f"radio_{st.session_state.indice}"
+)
+        if st.session_state.respondido:
+    if st.button("Siguiente"):
+        st.session_state.indice += 1
+        st.session_state.respondido = False
+        st.session_state.opciones = []
+
+        # 👇 limpia selección anterior
+        clave_radio = f"radio_{st.session_state.indice}"
+        if clave_radio in st.session_state:
+            del st.session_state[clave_radio]
+
+        st.rerun()
+        preguntas = [
+    {
+        "pregunta": "¿Cómo se llama la villana de La Sirenita?",
+        "opciones": ["Úrsula", "Maléfica", "Cruella", "Jafar"],
+        "respuesta": "Úrsula",
+        "imagen": "https://upload.wikimedia.org/wikipedia/en/3/3b/Ursula_Disney.png"
+    },
+]
